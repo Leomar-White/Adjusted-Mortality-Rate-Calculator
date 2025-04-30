@@ -7,7 +7,7 @@ pacman::p_load(tidyverse, tidycensus, openxlsx)
 FLVDRS <- read_excel("File path", sheet = 1)
 
 # Connect R to Census APi (only needs to be run once ) -----
-census_api_key("ba38a6fae35d99b71c28b50d051f03dc4e1a8160", install = TRUE, overwrite = TRUE)
+census_api_key("Enter Key", install = TRUE, overwrite = TRUE)
 
 ## generates a cached listed of all applicable varibale names; cache stores vales to computer -----
 VarNames <- load_variables(2020,"acs5", cache = TRUE)
@@ -159,7 +159,7 @@ county_sex_final <- pop_county_sex_final |>
     sex_rate_100k = deaths/pop*100000
   ) 
 
-openxlsx::write.xlsx(county_sex_final, file = "Z:/Data analysis/Quantitative/RStudio", colNames = TRUE)
+openxlsx::write.xlsx(county_sex_final, file = "file path", colNames = TRUE)
 
 head(county_sex_final)
 
@@ -184,7 +184,7 @@ county_race_final <- pop_county_race_final |>
     race_rate_100k = deaths/pop*100000
   ) 
 
-openxlsx::write.xlsx(county_race_final, file = "Z:/Data analysis/Quantitative/RStudio", colNames = TRUE)
+openxlsx::write.xlsx(county_race_final, file = "file path", colNames = TRUE)
 
 
 head(county_race_final, 10)
@@ -231,15 +231,9 @@ county_ethnicity_final <- pop_county_ethnicity_final |>
     deaths    = if_else(is.na(deaths), 0, deaths),
     eth_rate_100k = deaths/pop*100000
   )
-openxlsx::write.xlsx(county_ethnicity_final, file = "Z:/Data analysis/Quantitative/RStudio",colNames  = TRUE,)
+openxlsx::write.xlsx(county_ethnicity_final, file = "file path",colNames  = TRUE,)
 
 
 dim(county_ethnicity_final)
 head(county_ethnicity_final)
 
-
-
-#Sex Specific Rate 
-SPR <- death/u_county_tot
-print(SPR)
-#Race Specific Rate 
