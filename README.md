@@ -1,7 +1,7 @@
 <h1> Mortality Rate Calculator - US Census API</h1>
 
 <h2>Description</h2>
-This project calculates crude and age-adjusted mortality rates for Florida to support visualization on a Tableau dashboard. Using Tidyverse packages in R, mortality data from an Excel flat file was cleaned and reshaped, then merged with population estimates from the U.S. Census for accurate rate calculations.  
+This project calculates injury mortality rates adjusted by sex, race, and ethnicity for Florida to support visualization on a Tableau dashboard. Using Tidyverse packages in R, mortality data from an Excel flat file were cleaned and reshaped, then merged with population estimates from the U.S. Census for accurate rate calculations.  
 <br />
 
 
