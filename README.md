@@ -1,49 +1,44 @@
-<h1> Mortality Rate Calculator - Violent Injuries</h1>
+# Mortality Rate Calculator – Violent Injuries
 
-<h2>Description</h2>
-This project calculates injury mortality rates adjusted by sex, race, and ethnicity for Florida to support visualization on a Tableau dashboard. Using Tidyverse packages in R, mortality data from an Excel flat file were cleaned and reshaped, then merged with population estimates from the U.S. Census for accurate rate calculations.  
-<br />
+## Description
+This project calculates injury mortality rates stratified by sex, race, and ethnicity in Florida, supporting visualization in a Tableau dashboard. Using R and the Tidyverse suite, mortality data from an Excel flat file were cleaned, reshaped, and merged with U.S. Census population estimates for accurate rate calculations.
 
+---
 
-<h2>Languages and Utilities Used</h2>
+## Languages and Packages Used
+- **R**
+- **Tidyverse**
+- **Tidycensus**
 
-- <b> R </b> 
-- <b> Tidyverse Package</b>
-- <b> Tidycensus Package</b>
+---
 
+## Development Environment
+- **RStudio** (Version 4.4.1)
 
-<h2>Environments Used</h2>
+---
 
-- <b>RStudio</b> (4.4.1)
+## Program Walk-through
 
-<h2>Program walk-through:</h2>
-
+### 1. Load Packages and Connect to U.S. Census API  
 <p align="center">
-Load Packages and Connect to US Census API <br/>
-<img src="https://i.imgur.com/HIGfLqz.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<br />
-<br />
-Import Population Data from US Census <br/>
-<img src="https://i.imgur.com/2WCG08t.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<img src="https://i.imgur.com/7DO2lO7.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<br />
-<br />
-Create a template df for the mortality data, then merge it with the population df <br/>
-<img src="https://i.imgur.com/cj8YBd2.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<br />
-<br />
-Calculate the rates, then export <br/>
-<img src="https://i.imgur.com/ArUPV4Y.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<img src="https://i.imgur.com/OkWGkzt.png" height="80%" width="80%" alt="Motaility Rate Calculator Steps"/>
-<br />
+  <img src="https://i.imgur.com/HIGfLqz.png" width="80%" alt="Loading Packages and API Connection">
 </p>
 
-<!--
- ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
---!>
+### 2. Import Population Data from U.S. Census  
+<p align="center">
+  <img src="https://i.imgur.com/2WCG08t.png" width="80%" alt="Importing Population Data Step 1">
+  <br><br>
+  <img src="https://i.imgur.com/7DO2lO7.png" width="80%" alt="Importing Population Data Step 2">
+</p>
+
+### 3. Create a Template Data Frame for Mortality Data and Merge with Population Data  
+<p align="center">
+  <img src="https://i.imgur.com/cj8YBd2.png" width="80%" alt="Merging Data Frames">
+</p>
+
+### 4. Calculate Rates and Export Final Output  
+<p align="center">
+  <img src="https://i.imgur.com/ArUPV4Y.png" width="80%" alt="Calculating Rates">
+  <br><br>
+  <img src="https://i.imgur.com/OkWGkzt.png" width="80%" alt="Exporting Data">
+</p>
