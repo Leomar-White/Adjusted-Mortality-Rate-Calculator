@@ -7,9 +7,9 @@ pacman::p_load(tidyverse, tidycensus, openxlsx)
 FLVDRS <- read_excel("File path", sheet = 1)
 
 # Connect R to Census APi (only needs to be run once ) -----
-census_api_key("ba38a6fae35d99b71c28b50d051f03dc4e1a8160", install = TRUE, overwrite = TRUE)
+census_api_key("Enter Key", install = TRUE, overwrite = TRUE)
 
-## generates a cached listed of all applicable varibale names; cache stores vales to computer -----
+## generates a cached list of all applicable variable names; cache stores values to the  computer -----
 VarNames <- load_variables(2020,"acs5", cache = TRUE)
 
 # Importing County Population data by sex -----
@@ -143,7 +143,7 @@ head(FLVDRS)
 
 # SEX Specific Rates ----
 
-# Count number of deaths by county and sex -> creates an aggregate of sex county deaths 
+# Count number of deaths by county and sex -> creates an aggregate of sex and county deaths 
 deaths_county_sex_final <- FLVDRS |>
   group_by(County, Sex) |>
   summarise(deaths = sum(NumberDeaths, na.rm = T)) |>
@@ -166,7 +166,7 @@ head(county_sex_final)
 
 # RACE Specific Rates ----
 
-# Count number of deaths by county and sex -> creates an aggregate of sex county deaths 
+# Count number of deaths by county and sex -> creates an aggregate of sex and county deaths 
 deaths_county_race_final <- FLVDRS |>
   group_by(County, Race) |>
   mutate(Race = str_replace(Race, "Asian", "AHIPI"))|>
@@ -240,226 +240,3 @@ openxlsx::write.xlsx(county_ethnicity_final, file = "Z:/Data analysis/Quantitati
 dim(county_ethnicity_final)
 head(county_ethnicity_final)
 
-
-
-#Sex Specific Rate 
-SPR <- death/u_county_tot
-print(SPR)
-#Race Specific Rate 
-
-
-                                                 
-                                            ##### T E S T I N G #######
-##### everything below is used a testing groud for misc code. contains useful functions for visualizing and appending census data #######
-
-
-Fl_race <- select(
-  Fl_race, 
-  #  -race_pop,
-  #  -pop_total,
-  -Race
-)
-
-
-
-View(pums_variables)
-
-
-#FL pUMAS 
-FL_pums_age <- get_pums(
-  variables = "AGEP",
-  state = "FL",
-  geography = "county",
-  survey = "acs5",
-  recode = TRUE,
-  year = 2021
-)
-
-#mapping FL pUMAS 
-library(tigris)
-options(tigris_use_cache = TRUE)
-
-fl_pumas <- pumas(state = "FL", cb = TRUE, year = 2020)
-
-ggplot(fl_pumas) + 
-  geom_sf() + 
-  theme_void()
-
-
-# generate a dataframe with Age by Sex for FL 5 year estimates (2017-2021)
-#)_002 total males, _017 total females, _003-016 (>5 to 85+ x 5yr age groups) males ,_018-031 (>5 to 85+ x 5yr age groups)females
-Fl_Age_Sex <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  table = "B01001",
-)
-#males 
-Fl_Males <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B01001_002",
-)
-#females
-Fl_Females <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B01001_026",
-)
-
-# Grouping Sex 
-sex_vars <- c(
-  Male = "B01001_002",
-  Female = "B01001_026"
-)
-#5 year estimates (2017-2021)
-Fl_sex <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = sex_vars,
-  summary_var = "B01001_001",
-  year = 2021,
-  survey = "acs5"
-) 
-# Individual year 2020
-Fl_sex_2020 <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = sex_vars,
-  summary_var = "B01001_001",
-  year = 2020
-) 
-
-Fl_sex_2021 <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = sex_vars,
-  summary_var = "B01001_001",
-  year = 2021
-) 
-
-# race grouping 
-race_vars <- c(
-  White = "B03002_003",
-  Black = "B03002_004",
-  Native = "B03002_005",
-  Asian = "B03002_006",
-  HIPI = "B03002_007",
-  Hispanic = "B03002_012",
-  Two = "B03002_009",
-  Other = "B03002_008"
-)
-
-Fl_race <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = race_vars,
-  summary_var = "B03002_001",
-  year = 2021,
-  survey = "acs5"
-) 
-
-# race by county demogrphics 2020
-Fl_race_2020 <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = race_vars,
-  summary_var = "B03002_001",
-  year = 2020
-) 
-
-#race by county demog 2021
-Fl_race_2021 <- get_acs(
-  geography = "county",
-  state = "Fl",
-  variables = race_vars,
-  summary_var = "B03002_001",
-  year = 2021
-) 
-
-#total hispanics by county (2017-2021)
-Fl_His <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_012"
-)
-#total non_hispanics all by county (2017-2021)
-Fl_Not_His <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_002", 
-)
-#total non_hispanic whites by county (2017-2021)
-Fl_White <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_003", 
-)
-#total non_hispanic blacks by county (2017-2021)
-Fl_Black <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_004", 
-)
-#total non_hispanics American Indians by county (2017-2021)
-Fl_AI <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_005", 
-)
-#total non_hispanic Asian by county (2017-2021)
-Fl_Asian <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_006", 
-)
-#total non_hispanic Pacific Islander by county (2017-2021)
-Fl_PI <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_007", 
-)
-#total non_hispanic Some Other Race by county (2017-2021)
-Fl_Other_race <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_008", 
-)
-#total non_hispanic 2 or more  Race by county (2017-2021)
-Fl_Two_or_More <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B03002_009", 
-)
-
-#Age Groups Expanded 
-Fl_U5 <- get_acs(
-  geography = "county",
-  state = "FL",
-  year = 2021,
-  survey = "acs5",
-  variables = "B01001_002",
-)
