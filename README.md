@@ -7,6 +7,7 @@ This project calculates injury mortality rates stratified by sex, race, and ethn
 
 ## Languages and Packages Used
 - **R**
+- **Pacman**
 - **Tidyverse**
 - **Tidycensus**
 
